@@ -40,12 +40,12 @@ var date1=new Date();
 	
 
 		var ctx, objects = [];
-
+	    var ok=0;
 		var CObj = function(nx, ny, y, x) {
 
 				this.img = document.createElement('canvas');
-				this.img.width = nx + 1;
-				this.img.height = ny + 1;
+				this.img.width = nx + 8;
+				this.img.height = ny + 8;
 				this.x = x * nx;
 				this.y = y * ny;
 				this.xr = -canvas.width / 4;
@@ -66,6 +66,7 @@ var date1=new Date();
 
 				ctx.drawImage(
 						this.img,
+
 						this.x + (this.xr + pointer.xm * 0.5) * this.xf,
 						this.y + (this.yr + pointer.ym * 0.5) * this.yf
 						
@@ -75,22 +76,23 @@ var date1=new Date();
 
 		// ----- main loop -----
 		function run() {
-
+				requestAnimationFrame(run);
 			    
 
 				ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 				pointer.ease();
-
-				if (Math.abs(pointer.xm - canvas.width / 2) < 1 && Math.abs(pointer.ym - canvas.height / 2) < 1) {
+			
+				if (Math.abs(pointer.xm - canvas.width / 2) < 1 && Math.abs(pointer.ym - canvas.height / 2) < 1 && ok==0) {
 						pointer.xm = canvas.width / 2;
 						pointer.ym = canvas.height / 2;
 						alert(timetotime(date1,new Date())+" ！\n 刷新网页重新开始！")
 						pointer.xm=0
 						pointer.ym=0
 						date1=new Date()
+						ok=1
 				}
-				else requestAnimationFrame(run);
+				 
 
 				var i = 0,
 						o;
